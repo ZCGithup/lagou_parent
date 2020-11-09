@@ -3,3 +3,15 @@ server:
 spring:
   application:
     name: lagou_service_autodeliver
+
+#注册到eureka注册中心
+eureka:
+  client:
+    service-url:
+      #集群模式
+      defaultZone: http://eureka01:8761/eureka,http://eureka02:8762/eureka
+  instance:
+    #使用ip注册 否则就使用主机名了
+    prefer-ip-address: true
+    #自定义实例显示格式，加上版本号
+    instance-id: ${spring.cloud.client.ipaddress}:${spring.application.name}:${server.port}:@project.version@
