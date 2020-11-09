@@ -1,0 +1,42 @@
+server:
+  port: 8092
+spring:
+  application:
+    name: lagou_service_autodeliver
+
+#注册到eureka注册中心
+eureka:
+  client:
+    service-url:
+      #集群模式
+      defaultZone: http://eureka01:8761/eureka,http://eureka02:8762/eureka
+  instance:
+    #使用ip注册 否则就使用主机名了
+    prefer-ip-address: true
+    #自定义实例显示格式，加上版本号
+    instance-id: ${spring.cloud.client.ipaddress}:${spring.application.name}:${server.port}:@project.version@
+
+
+#针对的被调用方微服务名称,不加就是全局生效
+lagou-service-resume:
+  ribbon:
+    #请求连接超时时间
+    ConnectTimeout: 2000
+    #请求处理超时时间
+    ##########################################Feign超时时长设置
+    ReadTimeout: 3000
+    #对所有操作都进行重试
+    OkToRetryOnAllOperations: true
+    ####根据如上配置，当访问到故障请求的时候，它会再尝试访问一次当前实例（次数由MaxAutoRetries配置），
+    ####如果不行，就换一个实例进行访问，如果还不行，再换一次实例访问（更换次数由MaxAutoRetriesNextServer配置），
+    ####如果依然不行，返回失败信息。
+    MaxAutoRetries: 0 #对当前选中实例重试次数，不包括第一次调用
+    MaxAutoRetriesNextServer: 0 #切换实例的重试次数
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #负载策略调整
+
+
+#Fegin日志 log日志级别配置
+logging:
+  level:
+  #feign日志只会对log日志debug级别做出响应
+    com.lagou.edu.service.ResumeFeginClient: debug

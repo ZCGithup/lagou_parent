@@ -35,3 +35,4 @@ hs_err_pid*
 /lagou_service_common/target/
 /lagou_service_resume/target/
 /lagou_service_autodeliver/target/
+/lagou_service_autodeliver_ribbon/target/

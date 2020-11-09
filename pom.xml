@@ -13,6 +13,7 @@
         <module>lagou_service_resume</module>
         <module>lagou_cloud_eureke_server</module>
         <module>lagou_cloud_eureka_server_cp</module>
+        <module>lagou_service_autodeliver_ribbon</module>
     </modules>
 
     <!--父工程 打包方式pom-->
