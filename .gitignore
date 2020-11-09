@@ -34,3 +34,4 @@ hs_err_pid*
 /lagou_cloud_eureke_server/target/
 /lagou_service_common/target/
 /lagou_service_resume/target/
+/lagou_service_autodeliver/target/
