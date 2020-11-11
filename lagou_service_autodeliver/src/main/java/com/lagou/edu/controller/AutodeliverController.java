@@ -1,6 +1,5 @@
 package com.lagou.edu.controller;
 
-import com.netflix.appinfo.InstanceInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -24,8 +23,7 @@ public class AutodeliverController {
     @Autowired
     RestTemplate restTemplate;
 
-    @Autowired
-    DiscoveryClient discoveryClient;
+
 
 
     /**
@@ -42,8 +40,12 @@ public class AutodeliverController {
         return state;
     }
 
+
+    @Autowired
+    DiscoveryClient discoveryClient;
+
     /**
-     * 服务列表从注册中心拉取 再通过RestTemplate调用
+     * 服务列表从注册中心EurekaService拉取 再通过RestTemplate调用
      * @param userId
      * @return
      */
@@ -54,7 +56,7 @@ public class AutodeliverController {
         //todo  从eurekaServer中获取我们关注的服务实例信息。进而获取到服务的ip，port，接口信息
 
         //1、根据服务名称获取服务实例信息
-        List<ServiceInstance> instanceList = discoveryClient.getInstances("LAGOU_SERVICE_RESUME");
+        List<ServiceInstance> instanceList = discoveryClient.getInstances("lagou-service-resume");
         //2、取出第一个实例（负载均衡） 不考虑负载
         ServiceInstance serviceInstance = instanceList.get(0);
         //3、从元数据中获取host port信息
@@ -70,7 +72,7 @@ public class AutodeliverController {
     }
 
     /**
-     * 服务列表从注册中心拉取 再通过RestTemplate调用
+     * 服务列表从注册中心拉取 再通过RestTemplate+Ribbon  
      * @param userId
      * @return
      */
@@ -79,7 +81,7 @@ public class AutodeliverController {
 
 
         //todo  RestTemplate整合了Ribbon负载均衡   加上 @LoadBalanced注解
-        String url = "http://LAGOU_SERVICE_RESUME/resume/openState/" + userId;
+        String url = "http://lagou-service-resume/resume/openState/" + userId;
         //1、ribbon 会根据服务名称，再通过负载均衡算法选择一个实例，替换成ip + 端口号
 
         //2、远程调用

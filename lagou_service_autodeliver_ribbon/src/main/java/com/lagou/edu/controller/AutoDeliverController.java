@@ -95,6 +95,7 @@ public class AutoDeliverController {
     public Integer checkResumeStateTimeOutFallback(@PathVariable Long userId){
 
         String url = "http://lagou-service-resume/resume/openStateTimeout/" + userId;
+       // String url = "http://localhost:8081/resume/openStateTimeout/" + userId;
         //2、远程调用
         Integer state = restTemplate.getForObject(url, Integer.class);
         return state;

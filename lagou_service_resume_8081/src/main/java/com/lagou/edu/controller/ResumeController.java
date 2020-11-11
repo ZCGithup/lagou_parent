@@ -9,11 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Map;
-
 /**
  * @author zhangchi
  * @create 2020-11-08
@@ -24,30 +19,24 @@ public class ResumeController {
 
     @Autowired
     private ResumeService resumeService;
-
+    
     @Value("${server.port}")
     private Integer port;
 
 
-
     @GetMapping("/openState/{userId}")
     public Integer getResumeDefaultState(@PathVariable Long userId){
+
         Resume resume = resumeService.findDefaultResumeByUserID(userId);
-        //return  resume.getIsOpenResume();
-        return 8080;
+       // return  resume.getIsOpenResume();
+        return 8081;
     }
 
     @GetMapping("/openStateTimeout/{userId}")
-    public Integer openStateTimeout(@PathVariable Long userId){
+    public Integer getResumeDefaultStateTimeOut(@PathVariable Long userId){
 
-        //模拟处理超时
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // Resume resume = resumeService.findDefaultResumeByUserID(userId);
-
+        Resume resume = resumeService.findDefaultResumeByUserID(userId);
+        // return  resume.getIsOpenResume();
         return port;
     }
 }

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: lagou_cloud_eureka_server #应用名称
+    name: lagou-cloud-eureka-server #应用名称
 
   #eureka 客户端配置与（server交互信息）  eureka Server其实也是一个Client
 eureka:

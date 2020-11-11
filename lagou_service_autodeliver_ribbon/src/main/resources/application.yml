@@ -2,7 +2,7 @@ server:
   port: 8092
 spring:
   application:
-    name: lagou_service_autodeliver
+    name: lagou-service-autodeliver
 
 #注册到eureka注册中心
 eureka:
@@ -31,7 +31,7 @@ lagou-service-resume:
     ####如果不行，就换一个实例进行访问，如果还不行，再换一次实例访问（更换次数由MaxAutoRetriesNextServer配置），
     ####如果依然不行，返回失败信息。
     MaxAutoRetries: 0 #对当前选中实例重试次数，不包括第一次调用
-    MaxAutoRetriesNextServer: 0 #切换实例的重试次数
+    MaxAutoRetriesNextServer: 1 #切换实例的重试次数
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #负载策略调整
 
 
