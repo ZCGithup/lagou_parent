@@ -9,11 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author zhangchi
  * @create 2020-11-09
  */
-@FeignClient(value = "lagou-service-resume")
-@RequestMapping("/resume")
+@FeignClient(value = "lagou-service-resume",fallback = ResumeFallBack.class,path = "resume")
+//@RequestMapping("/resume") //支持hystrix回退会报错 解决 path = "resume"
 public interface ResumeFeginClient {
 
     @GetMapping("/openState/{userId}")
     public Integer getResumeDefaultState(@PathVariable("userId") Long userId);
+
+    /**
+     * 测试 feign + hystrixs 回退方法
+     * @param userId
+     * @return
+     */
+    @GetMapping("checkFeignHystrixsFallback")
+    public Integer checkFeignHystrixsFallback(@PathVariable("userId") Long userId);
 
 }

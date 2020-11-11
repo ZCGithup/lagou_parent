@@ -1,0 +1,26 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: lagou-cloud-hystrixs-turbine
+
+
+#注册到eureka注册中心
+eureka:
+  client:
+    service-url:
+      #集群模式
+      defaultZone: http://eureka01:8761/eureka,http://eureka02:8762/eureka
+  instance:
+    #使用ip注册 否则就使用主机名了
+    prefer-ip-address: true
+    #自定义实例显示格式，加上版本号
+    instance-id: ${spring.cloud.client.ipaddress}:${spring.application.name}:${server.port}:@project.version@
+
+
+#turbine配置
+turbine:
+  # appCofing配置需要聚合的服务名称，比如这里聚合自动投递微服务的hystrix监控数据
+  # 如果要聚合多个微服务的监控数据，那么可以使用英文逗号拼接，比如 a,b,c
+  appConfig: lagou-service-autodeliver
+  clusterNameExpression: "'default'"   # 集群默认名称

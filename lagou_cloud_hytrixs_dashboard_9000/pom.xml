@@ -9,31 +9,22 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>lagou_service_autodeliver</artifactId>
+    <artifactId>lagou_cloud_hytrixs_dashboard_9000</artifactId>
 
     <dependencies>
-      <!--  <dependency>
-            <groupId>com.lagou.edu</groupId>
-            <artifactId>lagou_service_common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>-->
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-commons</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
-
-
+        <!--Hytrixs 仪表盘-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

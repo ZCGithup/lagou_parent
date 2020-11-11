@@ -15,6 +15,8 @@
         <module>lagou_cloud_eureka_server_cp</module>
         <module>lagou_service_autodeliver_ribbon</module>
         <module>lagou_service_resume_8081</module>
+        <module>lagou_cloud_hytrixs_dashboard_9000</module>
+        <module>lagou_cloud-hystrixs_turbine_9001</module>
     </modules>
 
     <!--父工程 打包方式pom-->

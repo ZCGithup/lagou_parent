@@ -40,3 +40,32 @@ logging:
   level:
   #feign日志只会对log日志debug级别做出响应
     com.lagou.edu.service.ResumeFeginClient: debug
+
+#暴露springboot健康检查等端点接口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  #暴露健康检测的细节
+  endpoint:
+    health:
+      show-details: always
+
+
+#################比较感觉鸡肋
+
+#开启feign的熔断功能
+feign:
+  hystrix:
+    enabled: true
+
+#Hystrix的超时时长设置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            ##########################################Hystrix的超时时长设置
+            timeoutInMilliseconds: 15000

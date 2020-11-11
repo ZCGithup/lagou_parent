@@ -148,4 +148,69 @@ public class AutoDeliverController {
     public Integer myFallBack1(Long userId){
         return -1;//返回兜底数据
     }
+
+
+
+
+    /**
+     * 模拟服务提供者处理超时  使用Hystrix熔断 ---支持回退---使用舱壁模式 --定制熔断触发配置(定制工作过程细节)
+     *
+     *  结合Springboot健康检测机制可以查看Hystrix状态
+     *  //http://localhost:8092/actuator/health
+     *
+     * @param userId
+     * @return
+     */
+    //使用@HystrixCommand进行熔断控制
+    @HystrixCommand(
+            //线程池标识 要保存唯一 否则就共用一个线程池
+            threadPoolKey = "checkResumeStateTimeOutFallback2",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize",value = "1"), //线程数
+                    @HystrixProperty(name = "maxQueueSize",value = "20")//等待队列长度
+            },
+            //commandProperties 是熔断的细节配置属性
+            commandProperties ={
+                    //设置最大处理时间
+                    @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value ="2000" ),
+
+                    /**
+                     *   hystrix高级配置，定制工作过程细节
+                     *   在8秒的时间窗口内，统计请求次数大于等于2次，且失败率达到50%及以上 触发熔断跳闸
+                     *   自我修复机制，每一个3秒的时间窗口内,会放出一次请求，查看请求是否正常，如正常 关闭熔断。
+                     *
+                     *   监控Hystrix状态： springboot健康检测机制：
+                     *   hystrix: {
+                     * 	    status: "CIRCUIT_OPEN", //已熔断  UP熔断关闭 这个通过检查检查机制看到的
+                     * 	    details: {
+                     * 		   openCircuitBreakers: [AutoDeliverController::checkResumeStateTimeOutFallback2"]
+                     *        }
+                     */
+                    // 统计时间窗口定义
+                    @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds",value = "8000"),
+                    // 统计时间窗口内的最小请求数
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "2"),
+                    // 统计时间窗口内的错误数量百分比阈值
+                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage",value = "50"),
+                    // 自我修复时的活动窗口长度
+                    @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "3000")
+            },
+            fallbackMethod = "myFallBack2" //指定回退方法
+    )
+    @GetMapping("checkstateTimeOutFallback2/{userId}")
+    public Integer checkResumeStateTimeOutFallback2(@PathVariable Long userId){
+
+        String url = "http://lagou-service-resume/resume/openStateTimeout/" + userId;
+        //2、远程调用
+        Integer state = restTemplate.getForObject(url, Integer.class);
+        return state;
+    }
+
+    /**
+     * 定义回退方法 返回兜底数据
+     * 方法的参数，和方法值与方法保持一致
+     */
+    public Integer myFallBack2(Long userId){
+        return -1;//返回兜底数据
+    }
 }

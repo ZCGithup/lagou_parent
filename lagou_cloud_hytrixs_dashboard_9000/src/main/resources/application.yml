@@ -1,0 +1,19 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: lagou-cloud-hystrix-dashboard
+
+
+#注册到eureka注册中心
+eureka:
+  client:
+    service-url:
+      #集群模式
+      defaultZone: http://eureka01:8761/eureka,http://eureka02:8762/eureka
+  instance:
+    prefer-ip-address: true #使用ip注册 否则就使用主机名(兼容老的版本，老版本显示主机名)
+    #自定义实例显示格式，加上版本号
+    instance-id: ${spring.cloud.client.ipaddress}:${spring.application.name}:${server.port}:@project.version@
+

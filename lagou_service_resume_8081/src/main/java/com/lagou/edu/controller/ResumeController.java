@@ -39,4 +39,16 @@ public class ResumeController {
         // return  resume.getIsOpenResume();
         return port;
     }
+
+    /**
+     * feign + hystrix 回退方法测试
+     * @param userId
+     * @return
+     */
+    @GetMapping("checkFeignHystrixsFallback")
+    public Integer checkFeignHystrixsFallback(@PathVariable Long userId){
+
+        return port;
+    }
+
 }

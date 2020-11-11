@@ -47,7 +47,24 @@ public class ResumeController {
             e.printStackTrace();
         }
         // Resume resume = resumeService.findDefaultResumeByUserID(userId);
+        return port;
+    }
 
+
+    /**
+     * feign + hystrix 回退方法测试
+     * @param userId
+     * @return
+     */
+    @GetMapping("checkFeignHystrixsFallback")
+    public Integer checkFeignHystrixsFallback(@PathVariable Long userId){
+
+        //模拟处理超时
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return port;
     }
 }
