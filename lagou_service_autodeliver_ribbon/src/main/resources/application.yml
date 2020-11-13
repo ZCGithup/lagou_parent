@@ -24,14 +24,14 @@ lagou-service-resume:
     ConnectTimeout: 2000
     #请求处理超时时间
     ##########################################Feign超时时长设置
-    ReadTimeout: 3000
+    ReadTimeout: 15000
     #对所有操作都进行重试
     OkToRetryOnAllOperations: true
     ####根据如上配置，当访问到故障请求的时候，它会再尝试访问一次当前实例（次数由MaxAutoRetries配置），
     ####如果不行，就换一个实例进行访问，如果还不行，再换一次实例访问（更换次数由MaxAutoRetriesNextServer配置），
     ####如果依然不行，返回失败信息。
     MaxAutoRetries: 0 #对当前选中实例重试次数，不包括第一次调用
-    MaxAutoRetriesNextServer: 1 #切换实例的重试次数
+    MaxAutoRetriesNextServer: 0 #切换实例的重试次数
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #负载策略调整
 
 

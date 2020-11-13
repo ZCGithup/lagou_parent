@@ -27,7 +27,6 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-!/.gitignore
 
 
 # Project exclude paths
@@ -35,8 +34,9 @@ hs_err_pid*
 /lagou_cloud_eureke_server/target/
 /lagou_service_common/target/
 /lagou_service_resume/target/
+/lagou_service_resume_8081/target/
 /lagou_service_autodeliver/target/
 /lagou_service_autodeliver_ribbon/target/
-
-
-#张弛Git正
+/lagou_cloud_hytrixs_dashboard_9000/target/
+/lagou_service_resume_8081/target/
+/lagou_cloud_getway_9002/target/

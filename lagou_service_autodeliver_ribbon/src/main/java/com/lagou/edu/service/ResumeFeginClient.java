@@ -17,6 +17,15 @@ public interface ResumeFeginClient {
     public Integer getResumeDefaultState(@PathVariable("userId") Long userId);
 
     /**
+     * 服务提供者 超时模拟
+     * @param userId
+     * @return
+     */
+    @GetMapping("/openStateTimeout/{userId}")
+    public Integer openStateTimeout(@PathVariable("userId") Long userId);
+
+
+    /**
      * 测试 feign + hystrixs 回退方法
      * @param userId
      * @return

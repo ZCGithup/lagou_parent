@@ -16,6 +16,11 @@ public class ResumeFallBack implements ResumeFeginClient{
     }
 
 
+    @Override
+    public Integer openStateTimeout(Long userId) {
+        return -9000;
+    }
+
 
     @Override
     public Integer checkFeignHystrixsFallback(Long userId) {

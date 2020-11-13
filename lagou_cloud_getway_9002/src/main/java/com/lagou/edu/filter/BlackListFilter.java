@@ -30,7 +30,7 @@ public class BlackListFilter implements GlobalFilter, Ordered {
 
     static{
         //黑名单
-        blackList.add("0:0:0:0:0:0:0:1");
+        //blackList.add("0:0:0:0:0:0:0:1");
     }
     /**
      *
@@ -40,7 +40,6 @@ public class BlackListFilter implements GlobalFilter, Ordered {
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-
 
 
         //获取客户端IP
@@ -54,14 +53,10 @@ public class BlackListFilter implements GlobalFilter, Ordered {
             //拒绝访问
             response.setStatusCode(HttpStatus.UNAUTHORIZED);//状态码
             System.out.println("======拒绝访问");
-
-            String data = "no request";
-
+            String data = "bad request";
             DataBuffer wrap = response.bufferFactory().wrap(data.getBytes());
-
             return response.writeWith(Mono.just(wrap));
         }
-
         //放行
         return chain.filter(exchange);
     }

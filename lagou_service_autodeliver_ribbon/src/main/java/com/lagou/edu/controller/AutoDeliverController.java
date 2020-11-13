@@ -35,6 +35,24 @@ public class AutoDeliverController {
         return state;
     }
 
+    /**
+     * 使用Fegin远程调用 服务端超时模拟
+     * @param userId
+     * @return
+     */
+    @GetMapping("FeignCheckstateTimeOut/{userId}")
+    public Integer openStateTimeout(@PathVariable Long userId){
+
+        Integer state = resumeFeginClient.openStateTimeout(userId);
+
+        return state;
+    }
+
+
+
+    //================================================================================
+
+
 
     @Autowired
     private RestTemplate restTemplate;
